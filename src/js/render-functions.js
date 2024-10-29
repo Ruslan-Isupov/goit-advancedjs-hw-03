@@ -30,8 +30,11 @@ function renderUserListItems(images) {
     .join('');
 
   gallery.innerHTML = markup;
-  //   gallery.insertAdjacentHTML('beforeend', markup);
   new SimpleLightbox('.gallery a').refresh();
 }
 
-export { renderUserListItems };
+function clearMarkup() {
+  gallery.innerHTML = '';
+}
+
+export { renderUserListItems, clearMarkup };
