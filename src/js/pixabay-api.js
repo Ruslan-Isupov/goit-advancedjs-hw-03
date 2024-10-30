@@ -5,7 +5,6 @@ const searchPictures = function (query) {
     `https://pixabay.com/api/?key=${API_KEY}&q=${query}&image_type=photo$orientation=horizontal$safesearch=true`
   ).then(resp => {
     if (!resp.ok) {
-      console.log('Venya');
       throw new Error(resp.status);
     }
     return resp.json();

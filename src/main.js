@@ -5,17 +5,35 @@ import { searchPictures } from './js/pixabay-api.js';
 import { renderUserListItems, clearMarkup } from './js/render-functions.js';
 
 const form = document.querySelector('#search-form');
-const loader = document.querySelector('.loader');
+const load = document.querySelector('.loader');
 
 form.addEventListener('submit', findListOfPictures);
 
+class LoaderService {
+  constructor(el) {
+    this.loader = el;
+  }
+
+  hide() {
+    this.loader.style.display = '';
+  }
+
+  show() {
+    this.loader.style.display = 'block';
+  }
+}
+
+const loader = new LoaderService(load);
+
 function findListOfPictures(e) {
   e.preventDefault();
-  toggleLoader();
+  // toggleLoader();
+  loader.show();
   const nameQuery = form.elements.searchQuery.value;
 
   if (nameQuery === '') {
-    toggleLoader();
+    // toggleLoader();
+    loader.hide();
     iziToast.warning({
       title: 'Alert',
       message: 'You need to put world for searching',
@@ -24,9 +42,10 @@ function findListOfPictures(e) {
     return;
   }
   searchPictures(nameQuery)
-    .then(list => {
-      if (list.total === 0) {
-        toggleLoader();
+    .then(images => {
+      if (images.total === 0) {
+        // toggleLoader();
+        loader.hide();
         iziToast.warning({
           title: 'Alert',
           message:
@@ -35,11 +54,13 @@ function findListOfPictures(e) {
         });
         return clearMarkup();
       }
-      renderUserListItems(list);
-      toggleLoader();
+      renderUserListItems(images);
+      // toggleLoader();
+      loader.hide();
     })
     .catch(err => {
-      toggleLoader();
+      // toggleLoader();
+      loader.hide();
       clearMarkup();
       iziToast.error({
         title: 'Error',
@@ -52,9 +73,9 @@ function findListOfPictures(e) {
     });
 }
 
-function toggleLoader() {
-  loader.style.display =
-    loader.style.display === 'none' || loader.style.display === ''
-      ? 'block'
-      : 'none';
-}
+// function toggleLoader() {
+//   loader.style.display =
+//     loader.style.display === 'none' || loader.style.display === ''
+//       ? 'block'
+//       : 'none';
+// }
