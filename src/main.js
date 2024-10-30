@@ -27,12 +27,10 @@ const loader = new LoaderService(load);
 
 function findListOfPictures(e) {
   e.preventDefault();
-  // toggleLoader();
   loader.show();
   const nameQuery = form.elements.searchQuery.value;
 
   if (nameQuery === '') {
-    // toggleLoader();
     loader.hide();
     iziToast.warning({
       title: 'Alert',
@@ -44,7 +42,6 @@ function findListOfPictures(e) {
   searchPictures(nameQuery)
     .then(images => {
       if (images.total === 0) {
-        // toggleLoader();
         loader.hide();
         iziToast.warning({
           title: 'Alert',
@@ -55,11 +52,9 @@ function findListOfPictures(e) {
         return clearMarkup();
       }
       renderUserListItems(images);
-      // toggleLoader();
       loader.hide();
     })
     .catch(err => {
-      // toggleLoader();
       loader.hide();
       clearMarkup();
       iziToast.error({
@@ -72,10 +67,3 @@ function findListOfPictures(e) {
       form.reset();
     });
 }
-
-// function toggleLoader() {
-//   loader.style.display =
-//     loader.style.display === 'none' || loader.style.display === ''
-//       ? 'block'
-//       : 'none';
-// }
