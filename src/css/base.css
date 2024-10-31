@@ -15,6 +15,11 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 body {
   display: flex;
@@ -24,9 +29,9 @@ body {
   margin: 0;
 }
 
-main {
+/* main {
   flex-grow: 1;
 }
 main:has(.back-link) {
   text-align: center;
-}
+} */
