@@ -28,7 +28,7 @@ const loader = new LoaderService(load);
 function findListOfPictures(e) {
   e.preventDefault();
   loader.show();
-  const nameQuery = form.elements.searchQuery.value;
+  const nameQuery = form.elements.searchQuery.value.trim();
 
   if (nameQuery === '') {
     loader.hide();
